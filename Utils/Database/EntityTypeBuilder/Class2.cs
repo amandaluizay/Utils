@@ -2,7 +2,7 @@
 
 namespace Utils.Database.EntityTypeBuilder
 {
-    internal class Class2 : IEntity
+    public class Class2 : IEntity
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
