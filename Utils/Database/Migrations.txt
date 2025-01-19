@@ -5,3 +5,18 @@ dotnet ef migrations add Initial --context FutebolDbContext --project Campeonato
 dotnet ef database update --context FutebolDbContext --project Campeonato.DB\Campeonato.DB.Futebol.csproj --startup-project Campeonato.API.Internal\Campeonato.API.Internal.csproj
 
 dotnet ef migrations Remove --context FutebolDbContext --project Campeonato.DB\Campeonato.DB.Futebol.csproj --startup-project Campeonato.API.Internal\Campeonato.API.Internal.csproj
+
+var services = new ServiceCollection();
+services.Configure<DataverseConfig>(config => configuration.GetRequiredSection(nameof(DataverseConfig)).Bind(config));
+services.Configure<MedicalDynamicsConfig>(config => configuration.GetRequiredSection(nameof(MedicalDynamicsConfig)).Bind(config));
+var serviceProvider = services.AddAzureKeyVaultService("https://kv-medical-secrets.vault.azure.net/")
+                              .AddInternalMedicalDynamicsDbContext(configuration, true, true)
+                              .AddMedicalDataverse()
+                              .AddMedicalDbContext()
+                              .BuildServiceProvider();
+
+         var basePath = Directory.GetCurrentDirectory();
+        var configuration = new ConfigurationBuilder()
+     .SetBasePath(basePath)
+     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+     .Build();
