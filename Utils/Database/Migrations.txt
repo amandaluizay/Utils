@@ -1,0 +1,7 @@
+dotnet tool install --global dotnet-ef
+
+dotnet ef migrations add Initial --context FutebolDbContext --project Campeonato.DB\Campeonato.DB.Futebol.csproj --startup-project Campeonato.API.Internal\Campeonato.API.Internal.csproj
+
+dotnet ef database update --context FutebolDbContext --project Campeonato.DB\Campeonato.DB.Futebol.csproj --startup-project Campeonato.API.Internal\Campeonato.API.Internal.csproj
+
+dotnet ef migrations Remove --context FutebolDbContext --project Campeonato.DB\Campeonato.DB.Futebol.csproj --startup-project Campeonato.API.Internal\Campeonato.API.Internal.csproj
